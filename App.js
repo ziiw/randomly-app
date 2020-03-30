@@ -11,7 +11,7 @@ import {
   View 
 } from 'react-native';
 import * as Font from 'expo-font';
-
+import { signInWithFacebook } from './utils/auth'
 
 export default class App extends React.Component {
   state = {
@@ -37,10 +37,17 @@ export default class App extends React.Component {
     console.log(this.state.text)
   }
 
+  async login() {
+    const resp = await signInWithFacebook()
+    console.log(resp)
+  }
+
   render() {
     const {fontLoaded, text} = this.state
     const onSubmit = this.onSubmit.bind(this)
     const onChangeText = this.onChangeText.bind(this)
+    const login = this.login.bind(this)
+
     return fontLoaded ? (
       <KeyboardAvoidingView
       behavior={Platform.Os == "ios" ? "padding" : "height"}
@@ -56,12 +63,21 @@ export default class App extends React.Component {
             style={styles.textInput}
             maxLength={100}
             onChangeText={text => onChangeText(text)}
-            placeholder={'💬 Write your message...'}
+            placeholder={'💬 Type your message...'}
+            placeholderTextColor={'rgb(240, 240, 240)'}
             value={text}
           />
-          <TouchableOpacity style={styles.btnContainer} onPress={onSubmit}>
-            <Text style={styles.btn}>Send</Text>
-          </TouchableOpacity>
+          <View style={styles.btnContainer}>
+            <TouchableOpacity style={styles.msgContainer} onPress={login}>
+              <Text style={styles.btnMsg}>Msg</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.sendContainer} onPress={onSubmit}>
+              <Text style={styles.btn}>Send</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.stgContainer}>
+              <Text style={styles.btnStg}>Stg</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
@@ -76,46 +92,76 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  inner: {
+    width: '100%',
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: 'center'
+  },
+  titlesContainer:{
+    flex: 2,
+    alignSelf: 'flex-start',
+    marginLeft: 24,
+    marginTop: 60,
+  },
+  header: {
+    fontSize: 36,
+    marginBottom: 5,
+    fontFamily: 'nunito-black'
+  },
+  subTitle: {
+    fontSize: 25,
+    fontFamily: 'nunito-extra-bold'
+  },
   textInput: { 
+    flex: 2,
     width: '100%', 
     color: 'rgb(240, 240, 240)', 
     fontSize: 30,
     paddingLeft: 24,
     fontFamily: 'nunito-regular'
   },
-  inner: {
-    width: '100%',
+  btnContainer: {
     flex: 1,
-    justifyContent: "space-around",
+    flexDirection: 'row',
+    width: '90%',
+    justifyContent: 'space-between',
     alignItems: 'center'
   },
-  titlesContainer:{
-    alignSelf: "flex-start"
+  msgContainer: {
+    backgroundColor: "#FFFFFF",
+    padding: 10,
+    borderRadius: 40,
+    width: 65
   },
-  header: {
-    fontSize: 36,
-    marginLeft: 24,
-    marginBottom: 5,
-    alignSelf: 'flex-start',
-    fontFamily: 'nunito-black'
-  },
-  subTitle: {
-    fontSize: 25,
-    marginLeft: 24,
-    marginBottom: 48,
-    alignSelf: 'flex-start',
-    fontFamily: 'nunito-extra-bold'
-  },
-  btnContainer: {
+  sendContainer: {
     backgroundColor: "#FF235B",
     padding: 15,
     borderRadius: 40,
-    width: '90%'
+    width: 100
+  },
+  stgContainer: {
+    backgroundColor: "#FFFFFF",
+    padding: 10,
+    borderRadius: 40,
+    width: 65
+  },
+  btnMsg: {
+    color: '#FF235B',
+    textAlign: 'center',
+    fontSize: 18,
+    fontFamily: 'nunito-extra-bold'
   },
   btn: {
     color: 'white',
     textAlign: 'center',
     fontSize: 20,
+    fontFamily: 'nunito-extra-bold'
+  },
+  btnStg: {
+    color: '#FF235B',
+    textAlign: 'center',
+    fontSize: 18,
     fontFamily: 'nunito-extra-bold'
   }
 });

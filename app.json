@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Blank Template",
+    "name": "Randomly",
     "slug": "randomly",
     "privacy": "public",
     "sdkVersion": "36.0.0",
@@ -25,6 +25,19 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "extra": {
+      "firebase": {
+        "apiKey": " AIzaSyBNOjP8eN6lF3sQoNXviFo1zNwZpnE6eO8 ",
+        "authDomain": "randomly-c9804.firebaseapp.com",
+        "databaseURL": "https://randomly-c9804.firebaseio.com",
+        "projectId": "randomly-c9804",
+        "storageBucket": "randomly-c9804.appspot.com",
+        "messagingSenderId": "287274616453"
+      },
+      "facebook": {
+        "appId": "645079659663693"
+      }
     }
   }
 }
