@@ -11,6 +11,7 @@ import {
   View 
 } from 'react-native';
 import * as Font from 'expo-font';
+import * as Facebook from 'expo-facebook'
 import { signInWithFacebook } from './utils/auth'
 
 export default class App extends React.Component {
@@ -63,13 +64,13 @@ export default class App extends React.Component {
             style={styles.textInput}
             maxLength={100}
             onChangeText={text => onChangeText(text)}
-            placeholder={'💬 Type your message...'}
+            placeholder={'💬 Type your msg there...'}
             placeholderTextColor={'rgb(240, 240, 240)'}
             value={text}
           />
           <View style={styles.btnContainer}>
             <TouchableOpacity style={styles.msgContainer} onPress={login}>
-              <Text style={styles.btnMsg}>Msg</Text>
+              <Text style={styles.btnMsg}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.sendContainer} onPress={onSubmit}>
               <Text style={styles.btn}>Send</Text>
@@ -78,6 +79,8 @@ export default class App extends React.Component {
               <Text style={styles.btnStg}>Stg</Text>
             </TouchableOpacity>
           </View>
+
+          
         </View>
       </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
